@@ -2,6 +2,18 @@ name: Publish to npm
 
 on:
   workflow_dispatch:
+    inputs:
+      package:
+        description: Which package to publish
+        required: true
+        type: choice
+        options:
+          - asyntai
+          - asyntai-api
+      otp:
+        description: Six digit code from your authenticator app
+        required: true
+        type: string
 
 jobs:
   publish:
@@ -14,25 +26,11 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
 
-      - name: Who am I on npm
-        run: npm whoami
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Build and publish the panel
-        working-directory: asyntai
+      - name: Build and publish
+        working-directory: ${{ inputs.package }}
         run: |
           npm install
           npm run build
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Build and publish the endpoint
-        working-directory: asyntai-api
-        run: |
-          npm install
-          npm run build
-          npm publish --access public
+          npm publish --access public --otp=${{ inputs.otp }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
