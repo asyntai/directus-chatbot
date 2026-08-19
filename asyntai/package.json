@@ -1,0 +1,33 @@
+{
+    "name": "directus-extension-asyntai",
+    "version": "1.0.0",
+    "description": "Ask your Asyntai AI assistant questions from inside Directus. Answers come from your own website, documents and help centre articles.",
+    "keywords": [
+        "directus",
+        "directus-extension",
+        "directus-extension-module",
+        "asyntai",
+        "ai",
+        "chatbot",
+        "assistant",
+        "support"
+    ],
+    "homepage": "https://asyntai.com",
+    "license": "MIT",
+    "author": "Asyntai",
+    "type": "module",
+    "directus:extension": {
+        "type": "module",
+        "path": "dist/index.js",
+        "source": "src/module/index.js",
+        "host": "^10.10.0"
+    },
+    "devDependencies": {
+        "@directus/extensions-sdk": "^11.0.0",
+        "vue": "^3.4.0"
+    },
+    "scripts": {
+        "build": "directus-extension build",
+        "dev": "directus-extension build -w --no-minify"
+    }
+}
